@@ -1,0 +1,140 @@
+appId: com.example.app
+---
+- launchApp
+
+# Checkout flow
+- tapOn: "Padel"
+- tapOn: "Reserve Now"
+- assertVisible: "Padel Courts"
+- tapOn:
+    point: "85%,52%"
+- tapOn: "Add to Cart"
+- tapOn: "Checkout Now"
+- assertVisible:
+    text: "Pay"
+    enabled: false
+- scroll
+- assertVisible: "Payment Method"
+- tapOn: "Payment Method"
+- assertVisible: "Payment Method"
+- assertVisible: "QRIS"
+- assertVisible: "Virtual Account"
+- assertVisible: "Credit / Debit Card"
+
+#entry points
+- tapOn: "Credit / Debit Card"
+- tapOn: "Continue"
+
+#back navigation
+- assertVisible: "Payment"
+- tapOn:
+    point: "7%,8%"
+- assertVisible: "Payment"
+- tapOn:
+    point: "7%,8%"
+
+#checkout data validation
+- swipe:
+    start: 50%,30%
+    end: 50%,80%
+- assertVisible: "Reservation Summary"
+- scroll
+- assertVisible: "Payment Method"
+- assertVisible:
+    text: "Credit / Debit Card"
+    index: 1
+- assertVisible: "Cost Summary"
+- assertVisible:
+    text: "Pay"
+    enabled: true
+- tapOn: "Pay"
+
+#card details UI
+- assertVisible: "Card Number *"
+- assertVisible: "1234 5678 9101 2345"
+- assertVisible: "Month *"
+- assertVisible: "MM *"
+- assertVisible: "Year *"
+- assertVisible: "YYYY"
+- assertVisible: "CVV *"
+- assertVisible: "123"
+- tapOn: "1234 5678 9101 2345"
+- inputText: "4811111111111114"
+- tapOn: "MM"
+- inputText: "02"
+- tapOn: "YYYY"
+- inputText: "2027"
+- tapOn: "123"
+- inputText: "123"
+- tapOn:
+    point: "87%,91%"
+- assertVisible: "Continue"
+- tapOn: "Continue"
+
+#reject autofill
+- tapOn:
+    id: "android:id/autofill_save_no"
+
+#card design UI
+- assertVisible: "Confirm Payment Method"
+- assertVisible: "4811 1111 1111 1114"
+- assertVisible: "02/27"
+- assertVisible: "123"
+- assertVisible: "Test User"
+
+#change card
+- assertVisible: "Change Card"
+- tapOn: "Change Card"
+
+- assertVisible: "Credit Card Details"
+- tapOn: "1234 5678 9101 2345"
+- inputText: "4811 1111 1111 1114"
+- tapOn: "MM"
+- inputText: "02"
+- tapOn: "YYYY"
+- inputText: "2027"
+- tapOn: "123"
+- inputText: "123"
+- tapOn:
+    point: "87%,91%"
+- tapOn: "Continue"
+
+- assertVisible: 
+    text: "Pay Now"
+    enabled: true
+- tapOn: "Pay Now"
+
+#card payment OTP
+- assertVisible: "Issuing Bank"
+- assertVisible: "Merchant Name:"
+- assertVisible:
+    id: "merchant_name"
+- assertVisible: "Amount:"
+- assertVisible:
+    id: "txn_amount"
+- assertVisible: "Card Number:"
+- assertVisible:
+    id: "card_number"
+- assertVisible:
+    text: "Password:"
+    index: 0
+- assertVisible:
+    id: "otp"
+- tapOn:
+    id: "otp"
+- inputText: "112233"
+- tapOn:
+    point: "87%,91%"
+- tapOn: "OK"
+
+#pull refresh screen
+- swipe:
+    start: 50%,20%
+    end: 50%,80%
+
+- assertVisible: "Total Payment"
+- scroll
+- assertVisible: "Download Receipt"
+- assertVisible: "Share"
+- assertVisible: "View Order Detail"
+- tapOn: "View Order Detail"
